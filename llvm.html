@@ -1,0 +1,60 @@
+
+<style>
+    p {
+        font-size: 20px;
+    }
+</style>
+
+<title>LLVM</title>
+
+<h1>IR</h1>
+<h2>Module</h2>
+<h2>Funtion</h2>
+<h2>Instruction</h2>
+
+<h1>Opt</h1>
+<h2>Analysis</h2>
+<h2>Transform</h2>
+<h2>Pass Manager</h2>
+
+<h1>CodeGen</h1>
+<h2>Instruction Selection</h2>
+<h2>Instruction Scheduling</h2>
+<h2>Register Allocation</h2>
+
+<h1>MC</h1>
+<p>
+    <b>MCSection</b> is basic part of object<br>
+    <b>MCFragment</b> is subsection of MCSection.<br>
+    <b>MCSymbol</b> is a named object.<br>
+    <b>MCLabel</b> is an unnamed object.
+</p>
+<p>
+    <b>MCCodeEmitter</b> is used to print an instruction into a binary format:<br>
+    <code>void encodeInstruction(MCInst &Inst, vector&ltchar&gt &CB, vector&ltMCFixup&gt &Fixups, MCSubtargetInfo &STI)</code>
+</p>
+<p>
+    <b>MCInstPrinter</b>MCInstPrinter is used to print an instruction in assembly format:<br>
+    <code>void printInst(MCInst &Inst, uint64_t Address, StringRef Annot, MCSubtargetInfo &STI, raw_ostream &OS) </code>
+</p>
+<p>
+    <b>MCObjectFileInfo</b> is used to store information about the object file being generated. Every binary format initializes its<br>
+    own MCSection and its alignment.
+</p>
+<p>
+    <b>AsmPrinter</b> is a codegen MachineFunctionPass that is used to print MIR to assembly or object code. It is construced with an MCStreamer.<br>
+    The MCAsmStreamer inherits MCStreamer for assembly output, and MCObjectStreamer for object code output which is also subclassed<br>
+    by MCELFStreamer, MCMachOStreamer for different object formats which is also subclassed by different targets like RISCVELFStreamer,<br>
+    X86ELFStreamer, etc. The MCStreamer contains a MCTargetStreamer which is used to emit target-specific directives (for assembly) and<br>
+    data (for object) which is also subclassed by different targets like RISCVELFTargetStreamer.
+</p>
+<p>
+    <b>MCAssembler</b> receive MCCodeEmitter, MCAsmBackend and MCObjectWriter to write the object code. MCCodeEmitter emit instruction.<br>
+    MCAsmBackend create MCObjectWriter and apply MCFixup. MCObjectWriter write entire object file which is subclassed by different<br>
+    binary formats like MCELFObjectWriter, MCMachOObjectWriter etc. These subclasses also has its own MCObjectTargetWriter which is<br>
+    implementd by different targets like RISCVELFObjectWriter which is created by RISCVAsmBackend in order to create MCObjectWrtier.
+</p>
+<p>
+    <b>MCFixup</b>
+</p>
+

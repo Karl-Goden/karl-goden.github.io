@@ -26,7 +26,18 @@
 <h1>Chapter 3: CodeGen</h1>
 <h2>Section 0: TableGen</h2>
 <p>
-    
+    MCOperand:<br>
+      EncoderMethod<br>
+      DecoderMethod<br>
+      PrinteMethod<br>
+      OperandType<br>
+      MCOperandPredicate<br>
+      ParserMatchClass -> AsmOperandClass<br>
+    <br>
+    AsmOperandClass:<br>
+      ParserMethod: create operand from asm.<br>
+      RenderMethod: add operand into MCInst.<br>
+      PredicateMethod: check if operand is valid after parse.<br>
 </p>
 
 <h2>Section 1: Instruction Selection</h2>

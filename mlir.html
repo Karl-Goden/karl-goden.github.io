@@ -1,0 +1,62 @@
+<h1>The Philosophy of MLIR</h1>
+
+    Operation ~ Instruction, Region ~ Function, Block ~ Basicblock.<br>
+    Region is the parent of Block, Block is the parent of Operation.<br>
+    Operation has operands and results, both are Value type. Operation<br>
+    has attributes (dynamic map) and properties (static builtin).<br>
+    @ for global value, % for local value, ! for type, # for attribute.<br><br>
+
+    Constraits predicate on attribute, property, type, block, region.<br>
+    A constraint is a type predicate.<br>
+    TypeConstraint constrains operand's value type.<br>
+    AttrConstraint constrains attribute's value type.<br>
+    PropConstraint indicates property's value type.<br>
+    The above constraints models operation type.<br>
+    SuccessorConstraint models block type.<br>
+    RegionConstraint models region type.<br>
+    IR/CommonAttrConstraints.td and IR/CommonTypeConstraits.td show value<br>
+    type and attribute valeu type constraints. IR/Properties.td show how<br>
+    to create property type. IR/EnumAttr.td show how to create enum attr<br>
+    and enum property.<br><br>
+
+    Trait and Interface contains Attr, Operation and Type.<br>
+    Trait is class method, interface is object method. an interface accompanies<br>
+    a trait, trait tell whether a class has the interface declared methods.<br>
+    IR/AttrTypeBase.td contains TypeDef and AttrDef indicating how to<br>
+    create type and attr class. Based on this, IR/BuiltinTypes.td create<br>
+    builtin types, e.g., integer, float, index, memref, tensor etc. Before<br>
+    creating a new type, its interface should be defined in IR/BuiltinTypeInterfaces.td.<br>
+    And also, IR/BuiltinAttributes.td create builtin attribute value types.<br>
+    In Interfaces directory, apart from datalayout all interfaces are OpInterface.<br><br>
+
+    In natural language analogy, operation is verb, value is noun, attribute is adverb,<br>
+    type is adjective. So attribute cannot only decorate operation, but also type, e.g.,<br>
+    affine_map can be layout of memref type and affine.apply operation.<br><br>
+
+
+    Q0: Why memref type lower to llvm type has two pointers ?<br>
+    A0: malloc has no alignent guarantee, so we distinguish allocated pointer and aligned pointer.<br>
+
+<h1>mlir</h1>
+<h2>Affine</h2>
+
+<h1>torch-mlir: </h1>
+<h2>Torch</h2>
+<h2>TorchConversion</h2>
+<h2>TMTensor</h2>
+
+<h1>iree</h1>
+<h2>TensorExt</h2>
+<h2>LinalgExt</h2>
+<h2>Flow</h2>
+<h2>HAL</h2>
+<h2>Stream</h2>
+
+<h1>triton</h1>
+
+    A triton kernel (aka, a program) process a block of threads. BLOCKSIZE means<br>
+    how many data elements this kernel process.
+
+<h1>openxla</h1>
+<h2>stablehlo</h2>
+<h2>xla::mhlo</h2>

@@ -1,0 +1,47 @@
+<h2>Component</h2>
+
+<h4>D flip-flop with enable</h4>
+<pre>
+module dff_en (
+    input wire clk,
+    input wire en,
+    input wire d,
+    output reg q
+);
+    always @(posedge clk) begin
+        if (en)
+            q <= d;
+    end
+endmodule
+
+module dff_en_rst (
+    input wire clk,
+    input wire rst,
+    input wire en,
+    input wire d,
+    output reg q
+);
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            q <= 1'b0;
+        else if (en)
+            q <= d;
+    end
+endmodule
+</pre>
+
+<h2>Pipeline</h2>
+A register file has multiple ports. A port can serve different stages only if they<br>
+are not accessed in the same cycle. There are two orthogonal linles: write horizontal<br>
+pipeline and read vertical pipeline. In write pipeline the written value flows into<br>
+register file, at any moment the previous instruction's write stage is always larger<br>
+than the latter instruction's write stage, that mechanism assures right write order.<br>
+Read pipeline only read its upper stage values, that mechanism assures right read order.
+
+<br>
+<pre>
+    | 1 | 2 | 3 |
+        | 1 | 2 | 3 |
+            | 1 | 2 | 3 |
+</pre>
+A write port has the following signals: <b>def, addr, data, en</b>.<br>

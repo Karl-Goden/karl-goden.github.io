@@ -33,6 +33,14 @@
     type is adjective. So attribute cannot only decorate operation, but also type, e.g.,<br>
     affine_map can be layout of memref type and affine.apply operation.<br><br>
 
+    A operation should have the following members:<br>
+    <b>arguments</b>: operands + attributes + properties<br>
+    <b>results</b>: results + successors + regions<br>
+    <b>regions</b>: region list which contains block list<br>
+    <b>parse</b>: parse input into opstate<br>
+    <b>create</b>: call build<br>
+    <b>build</b>: build operation<br>
+    <b>print</b>:<br><br>
 
     Q0: Why memref type lower to llvm type has two pointers ?<br>
     A0: malloc has no alignent guarantee, so we distinguish allocated pointer and aligned pointer.<br>

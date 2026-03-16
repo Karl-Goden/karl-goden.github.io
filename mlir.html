@@ -37,10 +37,10 @@
     <b>arguments</b>: operands + attributes + properties<br>
     <b>results</b>: results + successors + regions<br>
     <b>regions</b>: region list which contains block list<br>
-    <b>parse</b>: parse input into opstate<br>
+    <b>parse</b>: parse assembly<br>
     <b>create</b>: call build<br>
     <b>build</b>: build operation<br>
-    <b>print</b>:<br><br>
+    <b>print</b>: print assembly<br><br>
 
     Q0: Why memref type lower to llvm type has two pointers ?<br>
     A0: malloc has no alignent guarantee, so we distinguish allocated pointer and aligned pointer.<br>

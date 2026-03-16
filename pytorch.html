@@ -1,4 +1,42 @@
-<b>tensor</b> 
+<h1>Section 0: Flow</h1>
 
-<b>nn.Module</b> to describe the dataflow in forward function.<br>
-<b>fx</b> (functional transfromation) compile nn.Module to graph representation.<br>
+torch.compile receive a plain function or torch.nn.Module or torch.fx.GraphModule (which is also a torch.nn.Module).<br>
+It calls dynamo which use python frame evaluation to trace the plain function or torch.nn.Module's forward function's<br>
+control flow and data flow. torch.export use example inputs to generate a control flow flattened graph ExportedProgram<br>
+which is used by other ai compiler like tensorrt, tvm, etc. For its own builtin ai compiler inductor, dynamo will generate<br>
+fx data flow graph and use inductor to accelerated hardware code. torch operation is represented by aten. If inductor does<br>
+not support certain aten operation, it will split the data flow graph and use torch's eager mode to execute it by aten library.<br>
+TorchScript is in jit directory which use aten library to execute operation. torch.jit.script(model).save can save the model<br>
+in torchscript format file. torch.save can save the model in torch's pickle format file.<br>
+
+<h2>Weired Name</h2>
+<b>aten</b>: a tensor library.<br>
+<b>c10</b>: core c++ library: data type, device abstraction, math library (softfloat, complex).<br>
+<b>fx</b>: functional transformation for data flow graph.<br>
+<b>distribted & distribution</b>: distributed training and probability distribution.<br>
+
+<h1>Section 1: Tensor</h1>
+_tensor.py: python tensor definition.<br>
+
+<h1>Section 2: ATen</h1>
+_ops.py: python binding of aten operation.<br>
+ATen/native/native_functions.yaml declare all aten operation signatures and dispatch to different backend implementation based<br>
+on which torchgen can generate its declaration and definition code.<br>
+
+<h1>Section 3: Dynamo</h1>
+Dynamo is a python level JIT compiler. It use python frame evaluation to trace the control flow and data flow of the<br>
+forward function of a torch.nn.Module or a plain function. It can generate fx data flow graph or export program graph.<br>
+
+<h1>Section 4: Inductor</h1>
+Inductor is a backend compiler for pytorch. It has several main components: graph capture, graph optimization, kernel<br>
+scheduling, code generation, and runtime execution.<br>
+
+<h1>Section 5: Fx</h1>
+Fx is a functional transformation for pytorch programs. It has three main components: tracer, graph, and interpreter.<br>
+The tracer records operations performed on tensors and builds a graph representation of the computation.<br>
+The graph is a data structure that represents the computation as a series of nodes and edges.<br>
+The interpreter executes the graph by traversing its nodes and performing the corresponding operations.<br>
+
+<h1>Section 6: Func</h1>
+Func is a functional programming library for pytorch. It provides a set of higher-order functions that can be used to<br>
+manipulate tensors and build complex computations in a functional style.<br>

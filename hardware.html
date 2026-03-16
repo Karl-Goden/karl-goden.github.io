@@ -1,4 +1,5 @@
 <h2>Component</h2>
+latch and flip-flop (two latches):<br>
 
 <h4>D flip-flop with enable</h4>
 <pre>
@@ -36,12 +37,12 @@ are not accessed in the same cycle. There are two orthogonal linles: write horiz
 pipeline and read vertical pipeline. In write pipeline the written value flows into<br>
 register file, at any moment the previous instruction's write stage is always larger<br>
 than the latter instruction's write stage, that mechanism assures right write order.<br>
-Read pipeline only read its upper stage values, that mechanism assures right read order.
-
-<br>
+Read pipeline only read its upper stage values, that mechanism assures right read order.<br>
 <pre>
     | 1 | 2 | 3 |
         | 1 | 2 | 3 |
             | 1 | 2 | 3 |
 </pre>
 A write port has the following signals: <b>def, addr, data, en</b>.<br>
+
+<h3>Scoreboard & Tomasulo</h3>
